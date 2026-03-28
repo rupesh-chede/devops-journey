@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  # Frontend — Nginx
+  frontend:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - backend
+    networks:
+      - appnetwork
+
+  # Backend — Python app
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    networks:
+      - appnetwork
+
+  # Database — MySQL
+  database:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: appdb
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - appnetwork
+
+volumes:
+  dbdata:
+
+networks:
+  appnetwork:
+    driver: bridge
