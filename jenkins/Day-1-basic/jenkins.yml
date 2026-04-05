@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('git clone'){
+      steps{
+
+      }
+    }
+
+    stage('terraform init'){
+      steps{
+        dir('Day-1-basic'){
+          sh 'terraform init'
+        }
+      }
+    }
+    stage('terraform plan'){
+      steps{
+        dir('Day-1-basic'){
+          sh 'terraform plan'
+        }
+      }
+    }
+    stage('terraform apply'){
+      steps{
+        dir('Day-1-basic'){
+          sh 'terraform ${action} -auto-approve'
+        }
+      }
+    }
+  }
+}
+
