@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('git clone'){
       steps{
-
+          git branch: 'main', url: 'https://github.com/rupesh-chede/devops-journey.git'
       }
     }
 
